@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var apiRouter = require('./routes/api');
+const db = require('./models');
 
 var app = express();
 
@@ -34,4 +35,6 @@ app.use(function (err, req, res, next) {
   res.json('error');
 });
 
+
+// db.sequelize.sync();
 module.exports = app;
