@@ -8,9 +8,9 @@ const db = require('../models');
 
 /* GET ALL entries. */
 router.get('/recipes', function (req, res, next) {
-  let limit = (req.body.limit ? req.body.limit : null);
-  let offset = (req.body.page ? 0 + (req.body.page - 1) * limit : null);
-  let order = (req.body.order ? ['id', req.body.order] : ['id', 'ASC'])
+  let limit = (req.query.limit ? req.query.limit : null);
+  let offset = (req.query.page ? 0 + (req.query.page - 1) * limit : null);
+  let order = (req.query.order ? ['id', req.query.order] : ['id', 'ASC'])
   db.Recipes.findAndCountAll({
     limit: limit,
     offset: offset,
@@ -24,7 +24,7 @@ router.get('/recipes', function (req, res, next) {
     }]
   })
     .then(data => {
-      console.log(data.rows.length);
+      // console.log(data.rows.length);
       res.json(data);
     })
 });
