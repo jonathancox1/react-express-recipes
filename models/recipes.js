@@ -12,7 +12,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Recipes.associate = function (models) {
     // associations can be defined here
-    Recipes.belongsToMany(models.Categories, { as: 'categories', through: 'RecipesCategories' })
+    Recipes.belongsToMany(models.Categories, {
+      as: 'categories',
+      through: 'RecipesCategories',
+      foreignKey: 'recipesID',
+      otherKey: 'categoriesID',
+    })
   };
   return Recipes;
 };

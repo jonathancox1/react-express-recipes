@@ -2,9 +2,19 @@ var express = require('express');
 var router = express.Router();
 const db = require('../models');
 
-/* GET home page. */
+/* builds pagination */
+// let limit = 2
+// let offset = 0 + (req.body.page - 1) * limit
+
+/* GET ALL entries. */
 router.get('/recipes', function (req, res, next) {
-  db.Recipes.findAll({
+  let limit = (req.body.limit ? req.body.limit : null);
+  let offset = (req.body.page ? 0 + (req.body.page - 1) * limit : null);
+  let order = (req.body.order ? ['id', req.body.order] : ['id', 'ASC'])
+  db.Recipes.findAndCountAll({
+    limit: limit,
+    offset: offset,
+    order: [order],
     include: [{
       model: db.Categories,
       as: 'categories',
@@ -14,6 +24,7 @@ router.get('/recipes', function (req, res, next) {
     }]
   })
     .then(data => {
+      console.log(data.rows.length);
       res.json(data);
     })
 });
