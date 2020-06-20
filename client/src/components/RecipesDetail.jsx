@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 export default class RecipesDetail extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
             details: [],
             loading: true,
@@ -24,16 +23,19 @@ export default class RecipesDetail extends Component {
             })
     }
 
+    goBack = () => {
+        this.props.history.goBack();
+    }
+
     render() {
-
         const { details, loading } = this.state
-
         if (this.state.loading) {
             return <div>Loading</div>
         }
 
         return (
             <div>
+                <button onClick={this.goBack}>Go Back</button>
                 <div className="card mx-auto" style={{ width: '300px' }}>
                     <Link to={`/recipes/${details.id}`}>
                         <h1>{details.name}</h1>
