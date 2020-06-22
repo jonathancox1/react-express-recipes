@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 export default class RecipesDetail extends Component {
@@ -34,25 +34,26 @@ export default class RecipesDetail extends Component {
         }
 
         return (
-            <div>
-                <button onClick={this.goBack}>Go Back</button>
-                <div className="card mx-auto" style={{ width: '300px' }}>
-                    <Link to={`/recipes/${details.id}`}>
-                        <h1>{details.name}</h1>
-                    </Link>
-                    <a href="#">{details.url}</a>
-                    <p>{details.review}</p>
-                    {details.vegan || details.vegetarian || details.gf || details.categories ? <h4>Categories: </h4> : null}
-                    {details.vegan && 'Vegan '}
-                    {details.vegetarian && 'Vegetarian '}
-                    {details.gf && 'Gluten Free '}
-                    {details.categories.map((details) => {
-                        return (
-                            <>{details.name} </>
-                        )
-                    })}
+            <div className="row text-center">
+                <div className="col">
+                    <button onClick={this.goBack}>Go Back</button>
+                    <div className="card mx-auto text-center m-2 shadow p-5" style={{ width: '800px', height: '50vh' }}>
+                        <Link to={`/recipes/${details.id}`}>
+                            <h1>{details.name}</h1>
+                        </Link>
+                        <a href="#">{details.url}</a>
+                        <p>{details.review}</p>
+                        {details.vegan || details.vegetarian || details.gf || details.categories ? <h4>Categories: </h4> : null}
+                        {details.vegan && 'Vegan '}
+                        {details.vegetarian && 'Vegetarian '}
+                        {details.gf && 'Gluten Free '}
+                        {details.categories.map((details) => {
+                            return (
+                                <>{details.name} </>
+                            )
+                        })}
+                    </div>
                 </div>
-
             </div>
         )
     }

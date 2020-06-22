@@ -1,10 +1,9 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import RecipesDetail from './RecipesDetail';
+import { Link } from 'react-router-dom';
 
 export default function RecipesCard({ item }) {
     return (
-        <div className="card mx-auto" style={{ width: '300px' }}>
+        <div className="card mx-auto text-center m-2 shadow p-2" style={{ width: '500px' }}>
             <Link to={`/recipes/${item.id}`}>
                 <h1>{item.name}</h1>
             </Link>

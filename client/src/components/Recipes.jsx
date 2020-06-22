@@ -28,10 +28,6 @@ export default class Recipes extends Component {
     }
 
     componentDidUpdate(prevState, prevProps, snapshot) {
-        console.log(prevState)
-        console.log(prevProps)
-        console.log(snapshot)
-
         if (prevProps.page !== this.state.page || prevProps.orderASC !== this.state.orderASC) {
             try {
                 fetch(`/api/v1/recipes/?limit=5&order=${this.state.orderASC ? 'ASC' : 'DESC'}&page=${this.state.page}`)
