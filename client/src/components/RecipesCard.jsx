@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 
 export default function RecipesCard({ item }) {
+
     return (
-        <div className="card mx-auto text-center m-2 shadow p-2" style={{ width: '500px' }}>
+        <div className="card text-center m-2 shadow p-2 w-100" style={{ width: '25vw' }}>
             <Link to={`/recipes/${item.id}`}>
                 <h1>{item.name}</h1>
             </Link>

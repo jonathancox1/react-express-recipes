@@ -62,7 +62,7 @@ export default class Recipes extends Component {
 
     render() {
         return (
-            <div>
+            <div className="border">
                 <div className="text-center">
                     <button onClick={this.changeOrder}>Displaying {this.state.orderASC ? 'Ascending ' : 'Descending '} Order</button>
                     <br />
@@ -70,13 +70,15 @@ export default class Recipes extends Component {
                     <button onClick={this.pageBackwards}>Back</button>
                     <button onClick={this.pageForward}>Next</button>
                 </div>
-                {this.state.recipes.map((item) => {
-                    return (
-                        <div className="row" key={item.id}>
-                            <RecipesCard item={item} />
-                        </div>
-                    )
-                })}
+                <div className="border row flex-wrap mx-auto justify-content-center" style={{ maxWidth: '70vw' }}>
+                    {this.state.recipes.map((item) => {
+                        return (
+                            <div className="" key={item.id}>
+                                <RecipesCard item={item} />
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         )
     }

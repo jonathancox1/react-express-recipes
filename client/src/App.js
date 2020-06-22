@@ -12,8 +12,8 @@ function App() {
         <Switch>
           <Suspense fallback={<div>Loading</div>}>
             <Route exact path="/" component={Recipes} />
-            <Route path="/:order/:limit/:page" component={Recipes} />
-            <Route path="/recipes/:id" component={RecipesDetail} />
+            <Route exact path="/:order/:limit/:page" component={Recipes} />
+            <Route exact path="/recipes/:id" component={RecipesDetail} />
           </Suspense>
         </Switch>
       </div>

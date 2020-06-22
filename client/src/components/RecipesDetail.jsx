@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 
 export default class RecipesDetail extends Component {
@@ -8,6 +8,7 @@ export default class RecipesDetail extends Component {
         this.state = {
             details: [],
             loading: true,
+            redirect: false
         }
     }
 
@@ -18,7 +19,8 @@ export default class RecipesDetail extends Component {
             .then(data => {
                 this.setState({
                     details: data,
-                    loading: false
+                    loading: false,
+                    redirect: false,
                 })
             })
     }
@@ -27,7 +29,26 @@ export default class RecipesDetail extends Component {
         this.props.history.goBack();
     }
 
+    deleteItem = () => {
+        try {
+            fetch(`/api/v1/recipes/${this.state.details.id}`, {
+                method: 'DELETE'
+            })
+                .then((data) => {
+                    this.setState({ redirect: !this.state.redirect })
+                    console.log(data);
+                })
+        } catch (err) {
+            console.log(err);
+        }
+        // this.props.history.push('/')
+    }
+
     render() {
+        if (this.state.redirect === true) {
+            return <Redirect to="/" />
+        }
+
         const { details, loading } = this.state
         if (this.state.loading) {
             return <div>Loading</div>
@@ -41,6 +62,7 @@ export default class RecipesDetail extends Component {
                         <Link to={`/recipes/${details.id}`}>
                             <h1>{details.name}</h1>
                         </Link>
+                        <button onClick={this.deleteItem}>Delete : {details.id}</button>
                         <a href="#">{details.url}</a>
                         <p>{details.review}</p>
                         {details.vegan || details.vegetarian || details.gf || details.categories ? <h4>Categories: </h4> : null}
