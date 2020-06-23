@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom';
+import LikesButton from './LikesButton'
+import styles from './RecipeForm.module.css';
+
 
 
 export default class RecipesDetail extends Component {
@@ -41,7 +44,6 @@ export default class RecipesDetail extends Component {
         } catch (err) {
             console.log(err);
         }
-        // this.props.history.push('/')
     }
 
     render() {
@@ -69,11 +71,16 @@ export default class RecipesDetail extends Component {
                         {details.vegan && 'Vegan '}
                         {details.vegetarian && 'Vegetarian '}
                         {details.gf && 'Gluten Free '}
-                        {details.categories.map((details) => {
-                            return (
-                                <>{details.name} </>
-                            )
-                        })}
+                        <div className={styles.formGroup}>
+                            <ul>
+                                {details.categories.map((details) => {
+                                    return (
+                                        <li>{details.name}</li>
+                                    )
+                                })}
+                            </ul>
+                        </div>
+                        <LikesButton id={details.id}></LikesButton>
                     </div>
                 </div>
             </div>

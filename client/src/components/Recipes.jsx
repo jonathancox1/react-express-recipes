@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import RecipesCard from './RecipesCard'
+import { Link } from 'react-router-dom'
+import { useSelector, useDispatch, connect } from 'react-redux'
+import { fetchData } from '../redux/actions/action'
 
-export default class Recipes extends Component {
+
+
+class Recipes extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -22,6 +27,7 @@ export default class Recipes extends Component {
                         count: data.count
                     })
                 })
+
         } catch (err) {
             console.log(err)
         }
@@ -69,6 +75,10 @@ export default class Recipes extends Component {
                     <div>Page: {this.state.page}</div>
                     <button onClick={this.pageBackwards}>Back</button>
                     <button onClick={this.pageForward}>Next</button>
+                    <br />
+                    <Link to="/recipes/new">
+                        <button>Submit a new Recipe</button>
+                    </Link>
                 </div>
                 <div className="border row flex-wrap mx-auto justify-content-center" style={{ maxWidth: '70vw' }}>
                     {this.state.recipes.map((item) => {
@@ -83,3 +93,23 @@ export default class Recipes extends Component {
         )
     }
 }
+// const mapDispatchToProps = (dispatch) => {
+//     recipes: dispatch(fetchData())
+// }
+
+// function mapStateToProps(state) {
+//     return {
+//         recipes: state.recipes
+//     };
+// }
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         recipes: () => dispatch({ type: 'FETCH_DATA', payload: this.state })
+//     };
+// }
+
+export default connect(null, null)(Recipes)
+
+
+

@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { addLike } from '../redux/actions/action'
+import { useSelector, useDispatch } from 'react-redux'
+import LikesButton from './LikesButton'
+
+
 
 export default function RecipesCard({ item }) {
+    const likes = useSelector(state => state.likes)
+    const dispatch = useDispatch();
 
     return (
         <div className="card text-center m-2 shadow p-2 w-100" style={{ width: '25vw' }}>
@@ -20,6 +27,9 @@ export default function RecipesCard({ item }) {
                     <>{item.name} </>
                 )
             })}
+            <LikesButton id={item.id}></LikesButton>
+
+            <br />
         </div>
     )
 }

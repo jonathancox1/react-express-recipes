@@ -52,9 +52,9 @@ router.get('/recipes/:id', function (req, res, next) {
 router.post('/recipes', function (req, res, next) {
   const { name, review, description, url, likes, vegetarian, vegan, gf, categories } = req.body;
 
-  if (!name) { res.status(400).json({ error: 'name field is required' }) }
-  if (!review) { res.status(400).json({ error: 'review field is required' }) }
-  if (!url) { res.status(400).json({ error: 'url field is required' }) }
+  // if (!name) { res.status(400).json({ error: 'name field is required' }) }
+  // if (!review) { res.status(400).json({ error: 'review field is required' }) }
+  // if (!url) { res.status(400).json({ error: 'url field is required' }) }
 
   db.Recipes.create({
     name: name,
@@ -94,6 +94,22 @@ router.delete('/recipes/:id', function (req, res, next) {
       } else {
         res.status(404).json({ error: `could not find recipe with id ${req.params.id}` })
       }
+    })
+})
+
+// add likes
+router.post('/recipes/:id/likes', (req, res) => {
+  db.Recipes.findOne({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(recipe => {
+      recipe.likes++
+      return recipe.save();
+    })
+    .then(recipe => {
+      res.json(recipe.likes);
     })
 })
 
